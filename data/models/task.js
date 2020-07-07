@@ -1,8 +1,8 @@
 const db = require("../config");
 
 function getTasks() {
-    return db("tasks as t")
-        .join("projects as p", "p.id", "t.project_id")
+    return db("task as t")
+        .join("project as p", "p.id", "t.project_id")
         .select(
             "p.id as project id",
             "t.description as task description",
@@ -14,11 +14,11 @@ function getTasks() {
 }
 
 function findById(id) {
-    return db("tasks").where({ id }).first();
+    return db("task").where({ id }).first();
 }
 
 function addTask(task) {
-    return db("tasks")
+    return db("task")
         .insert(task)
         .then(id => {
             return findById(id[0]);

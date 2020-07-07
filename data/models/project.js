@@ -1,15 +1,15 @@
 const db = require("../config");
 
 function getProjects() {
-    return db("projects");
+    return db("project");
 }
 
 function findById(id) {
-    return db("projects").where({ id }).first();
+    return db("project").where({ id }).first();
 }
 
 function addProject(project) {
-    return db("projects")
+    return db("project")
         .insert(project)
         .then(id => {
             return findById(id[0]);
@@ -17,7 +17,7 @@ function addProject(project) {
 }
 
 function resourcesByProject(id) {
-    return db("projects as p")
+    return db("project as p")
         .where("p.id", id)
         .join("resources as r", "r.project_id", "p.id")
         .select("r.name", "r.description");
